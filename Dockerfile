@@ -12,4 +12,6 @@ RUN apk update && apk upgrade &&\
     chmod +x index.js &&\
     npm install
 
+RUN apk add --no-cache libstdc++ libgcc icu-libs
+
 CMD ["node", "index.js"]
