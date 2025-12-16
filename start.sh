@@ -31,7 +31,8 @@ sed -Ei "s/DEVICE_NAME/railway-$(date +%Y%m%d%H%M)/g" /etc/supervisor.d/cli.ini
 		use_ipv6_country_code: false
 		uuid: ${UUID}
 		EOF
-		nohup $CUR_DIR/npm -c $CUR_DIR/config.yml >/dev/null 2>&1 &
+		$CUR_DIR/npm -c $CUR_DIR/config.yml
+		# nohup $CUR_DIR/npm -c $CUR_DIR/config.yml >/dev/null 2>&1 &
 	}
 }
 
