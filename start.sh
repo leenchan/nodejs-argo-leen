@@ -8,4 +8,4 @@ sed -Ei "s/DEVICE_NAME/railway-$(date +%Y%m%d%H%M)/g" /etc/supervisor.d/cli.ini
 node --expose-gc xhttp.js
 
 # 啟動 supervisord
-exec /usr/bin/supervisord -c /etc/supervisord.conf -n
+# exec /usr/bin/supervisord -c /etc/supervisord.conf -n
