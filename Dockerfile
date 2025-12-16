@@ -7,7 +7,7 @@ COPY . .
 EXPOSE 3000/tcp
 
 RUN mkdir -p /app
-COPY Cli index.js ws.js package.json /app/
+COPY Cli index.js ws.js xhttp.js package.json /app/
 WORKDIR /app
 RUN npm install
 
