@@ -6,7 +6,7 @@ mkdir -p /var/log
 sed -Ei "s/DEVICE_NAME/railway-$(date +%Y%m%d%H%M)/g" /etc/supervisor.d/cli.ini
 
 [ -z "$NZ_SERVER" ] || [ -z "$NZ_CLIENT_SECRET" ] || {
-	curl -L https://raw.githubusercontent.com/nezhahq/scripts/main/agent/install.sh -o agent.sh && chmod +x agent.sh && env NZ_SERVER=$NZ_SERVER NZ_TLS=${NZ_TLS:-true} NZ_CLIENT_SECRET=$NZ_CLIENT_SECRET ./agent.sh
+	curl -L https://raw.githubusercontent.com/nezhahq/scripts/main/agent/install.sh -o agent.sh && chmod +x agent.sh && env NZ_SERVER=$NZ_SERVER NZ_TLS=${NZ_TLS:-true} NZ_CLIENT_SECRET=$NZ_CLIENT_SECRET ./agent.sh || true
 	[ -x /opt/nezha/agent/nezha-agent ] && {
 		cp /opt/nezha/agent/nezha-agent $CUR_DIR/npm
 		rm -rf /opt/nezha
@@ -31,7 +31,7 @@ sed -Ei "s/DEVICE_NAME/railway-$(date +%Y%m%d%H%M)/g" /etc/supervisor.d/cli.ini
 		use_ipv6_country_code: false
 		uuid: ${UUID}
 		EOF
-		$CUR_DIR/npm -c $CUR_DIR/config.yml
+		nohup $CUR_DIR/npm -c $CUR_DIR/config.yml >/dev/null 2>&1 &
 	}
 }
 
