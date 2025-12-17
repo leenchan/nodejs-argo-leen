@@ -7,16 +7,20 @@ COPY . .
 EXPOSE 3000/tcp
 
 RUN mkdir -p /app
-COPY Cli index.js ws.js xhttp.js package.json /app/
+COPY Cli index.js ws.js xhttp.js package.json nezha.sh /app/
 WORKDIR /app
 RUN npm install
 
 RUN apk update && apk upgrade &&\
-    apk add --no-cache bash openssl curl gcompat iproute2 coreutils libstdc++ libgcc icu-libs supervisor
+    apk add --no-cache bash openssl curl gcompat iproute2 coreutils libstdc++ libgcc icu-libs supervisor uuidgen
+
+RUN chmod +x /app/nezha.sh
+RUN /app/nezha.sh
 
 RUN mkdir -p /etc/supervisor.d
 COPY cli.ini /etc/supervisor.d/cli.ini
 COPY node.ini /etc/supervisor.d/node.ini
+COPY nezha.ini /etc/supervisor.d/nezha.ini
 
 COPY start.sh /start.sh
 
