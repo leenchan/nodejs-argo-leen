@@ -3,7 +3,9 @@ CUR_DIR=$(cd "$(dirname $0)"; pwd)
 
 mkdir -p /var/log
 
-sed -Ei "s/DEVICE_NAME/railway-$(date +%Y%m%d%H%M)/g" /etc/supervisor.d/cli.ini
+[ -z "$DEVICE_NAME" ] && DEVICE_NAME="$(hostname)"
+[ -z "$DEVICE_NAME" ] && DEVICE_NAME=$(date +%Y%m%d-%H%M) || DEVICE_NAME="$DEVICE_NAME-$(date +%Y%m%d%H%M)"
+sed -Ei "s/DEVICE_NAME/$DEVICE_NAME/g" /etc/supervisor.d/cli.ini
 
 if [ -x /usr/bin/nezha-agent ] && [ -f /etc/nezha-agent/config.yml ] && [ -n "$NZ_SERVER" ] && [ -n "$NZ_CLIENT_SECRET" ]; then
 	[ -z "$NZ_UUID" ] && NZ_UUID=$(uuidgen)
